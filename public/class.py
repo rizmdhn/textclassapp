@@ -15,10 +15,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import joblib  
 import os
 
-cwd = os.getcwd()
+cwd = os.getcwd() 
+url_dataset = cwd + '/public/preproccesed4_dataset.csv'
+url_model = cwd + '/public/model_rfdt.pkl'
 # Load the RFDT model from the saved pickle file
-rfdt_predict_train = joblib.load(cwd + '/public/model_rfdt.pkl')
-df = pd.read_csv(cwd + '/public/preproccesed4_dataset.csv', encoding ='ISO-8859-1')
+rfdt_predict_train = joblib.load(url_model)
+df = pd.read_csv(url_dataset, encoding ='ISO-8859-1')
 label = ['Ujaran Kebencian', 'Kata Kasar','Individual', 'Group',
        'Agama', 'Ras', 'Tubuh', 'Jenis Kelamin', 'Lainnya',
        'Kategori Ringan', 'Kategori Sedang', 'Kategori Tinggi']
