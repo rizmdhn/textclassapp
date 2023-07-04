@@ -12,64 +12,75 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
-import joblib  
+import joblib
 import os
 
 # Load the RFDT model from the saved pickle file
 rfdt_predict_train = joblib.load('/app/public/model_rfdt.pkl')
-df = pd.read_csv('/app/public/preproccesed4_dataset.csv', encoding ='ISO-8859-1')
-label = ['Ujaran Kebencian', 'Kata Kasar','Individual', 'Group',
-       'Agama', 'Ras', 'Tubuh', 'Jenis Kelamin', 'Lainnya',
-       'Kategori Ringan', 'Kategori Sedang', 'Kategori Tinggi']
+df = pd.read_csv('/app/public/preproccesed4_dataset.csv',
+                 encoding='ISO-8859-1')
+label = ['Ujaran Kebencian', 'Kata Kasar', 'Individual', 'Group',
+         'Agama', 'Ras', 'Tubuh', 'Jenis Kelamin', 'Lainnya',
+         'Kategori Ringan', 'Kategori Sedang', 'Kategori Tinggi']
 
 text = sys.argv[1]
+
+
 def clean_text(text):
-  # Convert the text to lowercase
-  text = text.lower()
-      
-  # Remove any URLs from the text
-  text = re.sub(r'http\S+', '', text)
-  
-  # Remove the set of text
-  text = re.sub(r'user', '',text)
-  text = re.sub(r'rt','',text)
-  # Remove any non-alphabetic characters from the text
-  text = re.sub(r'[^a-z ]', '', text)
-      
-  # Remove any extra spaces from the text
-  text = re.sub(r'\s+', ' ', text)
-      
-  # Return the cleaned text
-  return text.strip()
+    # Convert the text to lowercase
+    text = text.lower()
+
+    # Remove any URLs from the text
+    text = re.sub(r'http\S+', '', text)
+
+    # Remove the set of text
+    text = re.sub(r'user', '', text)
+    text = re.sub(r'rt', '', text)
+    # Remove any non-alphabetic characters from the text
+    text = re.sub(r'[^a-z ]', '', text)
+
+    # Remove any extra spaces from the text
+    text = re.sub(r'\s+', ' ', text)
+
+    # Return the cleaned text
+    return text.strip()
+
+
 final = []
+
+
 def checkarraynull(array):
-  for x in range((predictions.shape[0])):
-      t = predictions[x]
-      if all(v == 0 for v in t):
-        continue
-      else :
-        final.append(t.tolist())
-  return final
+    for x in range((predictions.shape[0])):
+        t = predictions[x]
+        if all(v == 0 for v in t):
+            continue
+        else:
+            final.append(t.tolist())
+    return final
+
+
 def get_result_class(array):
-  sum = [0,0,0,0,0,0,0,0,0,0,0,0]
-  labels = []
-  if len(array) > 1:
-    for f in array:
-      for i in range(len(f)):
-        if f[i] == 1:
-          sum[i] += 1
-    for i in range(len(sum)):
-      quorum = (len(array) / 2) + 1
-      if sum[i] >= quorum:
-        labels.append(label[i])
-  elif len(array) == 1:
-    for f in final:
-        for i in range(len(f)):
-          if f[i] == 1:
-            labels.append(label[i])
-  elif len(array) == 0:
-    labels.append("Tidak ada label")
-  return labels
+    sum = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    labels = []
+    if len(array) > 1:
+        for f in array:
+            for i in range(len(f)):
+                if f[i] == 1:
+                    sum[i] += 1
+        for i in range(len(sum)):
+            quorum = (len(array) / 2) + 1
+            if sum[i] >= quorum:
+                labels.append(label[i])
+    elif len(array) == 1:
+        for f in final:
+            for i in range(len(f)):
+                if f[i] == 1:
+                    labels.append(label[i])
+    elif len(array) == 0:
+        labels.append("Tidak ada label")
+    return labels
+
+
 text = clean_text(text)
 text = word_tokenize(text)
 stopwords = set(sw.words('indonesian'))
