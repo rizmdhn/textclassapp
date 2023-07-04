@@ -2,13 +2,14 @@ FROM ubuntu:22.04
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y python3 python3-pip
+RUN apt-get update 
+RUN apt-get install -y git-lfs
+RUN git lfs pull
+RUN apt-get install -y python3 python3-pip
 RUN apt-get install -y curl
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
 RUN apt-get install -y nodejs
-RUN apt-get install -y git
-RUN git lfs install
-RUN git lfs pull
+
 COPY requirement.txt ./
 RUN pip3 install --no-cache-dir -r requirement.txt
 COPY . .
