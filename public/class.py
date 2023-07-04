@@ -17,11 +17,11 @@ import joblib
 # Load the RFDT model from the saved pickle file
 rfdt_predict_train = joblib.load('public/model_rfdt.pkl')
 df = pd.read_csv('public/preproccesed4_dataset.csv', encoding ='ISO-8859-1')
-label = ['HS', 'Abusive','HS_Individual', 'HS_Group',
-       'HS_Religion', 'HS_Race', 'HS_Physical', 'HS_Gender', 'HS_Other',
-       'HS_Weak', 'HS_Moderate', 'HS_Strong']
+label = ['Ujaran Kebencian', 'Kata Kasar','Individual', 'Group',
+       'Agama', 'Ras', 'Tubuh', 'Jenis Kelamin', 'Lainnya',
+       'Kategori Ringan', 'Kategori Sedang', 'Kategori Tinggi']
 
-text = sys.argv[1];
+text = sys.argv[1]
 def clean_text(text):
   # Convert the text to lowercase
   text = text.lower()
