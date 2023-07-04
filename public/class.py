@@ -14,9 +14,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 import joblib
 # Load the RFDT model from the saved pickle file
+df = pd.read_csv('preproccesed4_dataset.csv', encoding='ISO-8859-1')
 rfdt_predict_train = joblib.load('model_rfdt.pkl')
-df = pd.read_csv('preproccesed4_dataset.csv',
-                 encoding='ISO-8859-1')
 label = ['Ujaran Kebencian', 'Kata Kasar', 'Individual', 'Group',
          'Agama', 'Ras', 'Tubuh', 'Jenis Kelamin', 'Lainnya',
          'Kategori Ringan', 'Kategori Sedang', 'Kategori Tinggi']
