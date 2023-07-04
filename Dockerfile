@@ -10,8 +10,8 @@ COPY requirement.txt ./
 RUN pip3 install --no-cache-dir -r requirement.txt
 COPY . .
 
-RUN python -m nltk.downloader stopwords
-RUN python -m nltk.downloader punkt
+RUN python3 -m nltk.downloader stopwords
+RUN python3 -m nltk.downloader punkt
 COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install 
 COPY . .
