@@ -10,7 +10,7 @@ router.get("/", function (req, res, next) {
 
 router.post("/classify", function (req, res, next) {
   prediction = [];
-  const python = spawn('python', ['public/class.py', req.body.text]);
+  const python = spawn('python3', ['public/class.py', req.body.text]);
   python.stdout.on('data', function (data) {
     console.log('Pipe data from python script ...');
     prediction.push(data);
