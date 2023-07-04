@@ -16,8 +16,8 @@ import joblib
 import os
 
 cwd = os.getcwd() 
-url_dataset = cwd + '/public/preproccesed4_dataset.csv'
-url_model = cwd + '/public/model_rfdt.pkl'
+url_model = "/app/public/model_rfdt.pkl"
+url_dataset = "/app/public/preproccesed4_dataset.csv"
 # Load the RFDT model from the saved pickle file
 rfdt_predict_train = joblib.load(url_model)
 df = pd.read_csv(url_dataset, encoding ='ISO-8859-1')
