@@ -13,6 +13,7 @@ router.post("/classify", function (req, res, next) {
   const python = spawn('python3', ['public/class.py', req.body.text]);
   python.stdout.on('data', function (data) {
     console.log('Pipe data from python script ...');
+    res.send(data.toString());
    });
   python.stderr.on('data', (data) => {
     console.error(`stderr: ${data}`);
@@ -20,7 +21,6 @@ router.post("/classify", function (req, res, next) {
    python.on('close', (code) => {
     console.log(`child process close all stdio with code ${code}`);
     // send data to browser
-    res.send(data.toString());
   });
 });
 
