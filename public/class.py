@@ -15,7 +15,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import joblib  
 import os
 
-cwd = os.cwd()
+cwd = os.getcwd()
 # Load the RFDT model from the saved pickle file
 rfdt_predict_train = joblib.load(cwd + '/public/model_rfdt.pkl')
 df = pd.read_csv(cwd + '/public/preproccesed4_dataset.csv', encoding ='ISO-8859-1')
