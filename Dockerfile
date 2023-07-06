@@ -3,17 +3,14 @@ FROM ubuntu:22.04
 WORKDIR /app
 
 RUN apt-get update 
-RUN apt-get install -y git-lfs
-RUN cd app && git lfs pull
 RUN apt-get install -y python3 python3-pip
 RUN apt-get install -y curl
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
 RUN apt-get install -y nodejs
-
 COPY requirement.txt ./
 RUN pip3 install --no-cache-dir -r requirement.txt
 COPY . .
-
+RUN python3 -m nltk.downloader -d /usr/local/nltk_data all
 RUN python3 -m nltk.downloader stopwords
 RUN python3 -m nltk.downloader punkt
 COPY ["package.json", "package-lock.json*", "./"]

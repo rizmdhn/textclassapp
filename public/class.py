@@ -1,21 +1,18 @@
 import pandas as pd
 import re
-import numpy as np
 import sys
-from skmultilearn.problem_transform import BinaryRelevance
-from skmultilearn.problem_transform import ClassifierChain
-from skmultilearn.problem_transform import LabelPowerset
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('corpus')
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords as sw
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 import joblib
 # Load the RFDT model from the saved pickle file
-df = pd.read_csv('preproccesed4_dataset.csv', encoding='ISO-8859-1')
-rfdt_predict_train = joblib.load('model_rfdt.pkl')
+df = pd.read_csv('/app/public/preproccesed4_dataset.csv', encoding='ISO-8859-1')
+rfdt_predict_train = joblib.load('/app/public/model_rfdt.pkl')
 label = ['Ujaran Kebencian', 'Kata Kasar', 'Individual', 'Group',
          'Agama', 'Ras', 'Tubuh', 'Jenis Kelamin', 'Lainnya',
          'Kategori Ringan', 'Kategori Sedang', 'Kategori Tinggi']
