@@ -16,33 +16,22 @@ rfdt_predict_train = joblib.load('/app/public/model_rfdt.pkl')
 label = ['Ujaran Kebencian', 'Kata Kasar', 'Individual', 'Group',
          'Agama', 'Ras', 'Tubuh', 'Jenis Kelamin', 'Lainnya',
          'Kategori Ringan', 'Kategori Sedang', 'Kategori Tinggi']
-
 text = sys.argv[1]
-
-
+final = []
 def clean_text(text):
     # Convert the text to lowercase
     text = text.lower()
-
     # Remove any URLs from the text
     text = re.sub(r'http\S+', '', text)
-
     # Remove the set of text
     text = re.sub(r'user', '', text)
     text = re.sub(r'rt', '', text)
     # Remove any non-alphabetic characters from the text
     text = re.sub(r'[^a-z ]', '', text)
-
     # Remove any extra spaces from the text
     text = re.sub(r'\s+', ' ', text)
-
     # Return the cleaned text
     return text.strip()
-
-
-final = []
-
-
 def checkarraynull(array):
     for x in range((predictions.shape[0])):
         t = predictions[x]
@@ -51,8 +40,6 @@ def checkarraynull(array):
         else:
             final.append(t.tolist())
     return final
-
-
 def get_result_class(array):
     sum = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     labels = []
@@ -73,8 +60,6 @@ def get_result_class(array):
     elif len(array) == 0:
         labels.append("Tidak ada label")
     return labels
-
-
 text = clean_text(text)
 text = word_tokenize(text)
 stopwords = set(sw.words('indonesian'))
